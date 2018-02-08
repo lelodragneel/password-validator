@@ -9,7 +9,7 @@ import android.util.Log;
 public class Validator {
 
     public int getPasses(String password) {
-        int numOfRules = 2;
+        int numOfRules = 5;
         int totalFails = 0;
 
         if (password.equals("password")) {
@@ -19,6 +19,21 @@ public class Validator {
 
         if (password.length() < 8) {
             Log.i("Rule 2", "failed");
+            totalFails++;
+        }
+
+        if (password.matches(".*[A-Z].*[A-Z].*")) {
+            Log.i("Rule 3", "failed");
+            totalFails++;
+        }
+
+        if (password.matches(".*[a-z].*")) {
+            Log.i("Rule 4", "failed");
+            totalFails++;
+        }
+
+        if (password.matches(".*[0-9].*[0-9].*")) {
+            Log.i("Rule 5", "failed");
             totalFails++;
         }
 
