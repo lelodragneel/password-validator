@@ -8,36 +8,72 @@ import android.util.Log;
 
 public class Validator {
 
-    public int getPasses(String password) {
-        int numOfRules = 5;
-        int totalFails = 0;
+    String password;
+    int totalFails;
+    int numOfRules;
 
-        if (password.equals("password")) {
-            Log.i("Rule 1", "failed");
+    public Validator(String password) {
+        this.password = password;
+        numOfRules = 5;
+    }
+
+    public int getPasses() {
+        totalFails = 0;
+
+        if (password.equals("password") || password.equals("")) {
+            Log.d("Rule 1", "failed");
             totalFails++;
         }
 
         if (password.length() < 8) {
-            Log.i("Rule 2", "failed");
+            Log.d("Rule 2", "failed");
             totalFails++;
         }
 
-        if (password.matches(".*[A-Z].*[A-Z].*")) {
-            Log.i("Rule 3", "failed");
+        if (!password.matches(".*[A-Z].*[A-Z].*")) {
+            Log.d("Rule 3", "failed");
             totalFails++;
         }
 
-        if (password.matches(".*[a-z].*")) {
-            Log.i("Rule 4", "failed");
+        if (!password.matches(".*[a-z].*")) {
+            Log.d("Rule 4", "failed");
             totalFails++;
         }
 
-        if (password.matches(".*[0-9].*[0-9].*")) {
-            Log.i("Rule 5", "failed");
+        if (!password.matches(".*[0-9].*[0-9].*")) {
+            Log.d("Rule 5", "failed");
             totalFails++;
         }
 
         return numOfRules - totalFails;
+    }
+
+    public String getStrength() {
+        switch (getPasses()) {
+            case 0:
+                return "Abominable";
+            case 1:
+                return "Pathetic";
+            case 2:
+                return "Bad";
+            case 3:
+                return "Fine";
+            case 4:
+                return "Good";
+            case 5:
+                return "Badass";
+            default:
+                Log.e("getStrength", "something didn't work right in the switch");
+                return "error";
+        }
+    }
+
+    public boolean isAcceptable() {
+        if (totalFails > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
