@@ -8,40 +8,40 @@ import android.util.Log;
 
 public class Validator {
 
-    String password;
     int totalFails;
+    int totalPasses;
     int numOfRules;
 
     public Validator(String password) {
-        this.password = password;
         numOfRules = 5;
+        totalPasses = getPasses(password);
     }
 
-    public int getPasses() {
+    public int getPasses(String password) {
         totalFails = 0;
 
         if (password.equals("password") || password.equals("")) {
-            Log.d("Rule 1", "failed");
+            //Log.d("Rule 1", "failed");
             totalFails++;
         }
 
         if (password.length() < 8) {
-            Log.d("Rule 2", "failed");
+            //Log.d("Rule 2", "failed");
             totalFails++;
         }
 
         if (!password.matches(".*[A-Z].*[A-Z].*")) {
-            Log.d("Rule 3", "failed");
+            //Log.d("Rule 3", "failed");
             totalFails++;
         }
 
         if (!password.matches(".*[a-z].*")) {
-            Log.d("Rule 4", "failed");
+            //Log.d("Rule 4", "failed");
             totalFails++;
         }
 
         if (!password.matches(".*[0-9].*[0-9].*")) {
-            Log.d("Rule 5", "failed");
+            //Log.d("Rule 5", "failed");
             totalFails++;
         }
 
@@ -49,7 +49,7 @@ public class Validator {
     }
 
     public String getStrength() {
-        switch (getPasses()) {
+        switch (totalPasses) {
             case 0:
                 return "Abominable";
             case 1:
@@ -63,7 +63,7 @@ public class Validator {
             case 5:
                 return "Badass";
             default:
-                Log.e("getStrength", "something didn't work right in the switch");
+                //Log.e("getStrength", "something didn't work right in the switch");
                 return "error";
         }
     }
